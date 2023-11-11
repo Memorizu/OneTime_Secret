@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "onetime_secret"
+version = "0.1.0"
+description = ""
+authors = ["boshy <kaidohmary@gmail.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+fastapi = "^0.104.1"
+uvicorn = "^0.24.0"
+beanie = "^1.23.3"
+python-dotenv = "^1.0.0"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
