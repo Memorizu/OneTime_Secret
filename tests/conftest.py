@@ -3,7 +3,7 @@ import pytest
 from beanie import init_beanie
 from httpx import AsyncClient
 
-from source.main import app
+from main import app
 from source.secret.model import Secret
 from source.settings import DB_TEST_PATH
 

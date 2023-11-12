@@ -10,6 +10,10 @@ loger = get_loger('motor_client')
 
 
 async def init_db():
+    """
+    Connecting to a mongo database
+    :return: db instance
+    """
     client = motor.motor_asyncio.AsyncIOMotorClient(host=DB_PATH)
     db = client['secrets']
     loger.info('connecting to database')

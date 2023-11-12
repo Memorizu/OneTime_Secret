@@ -13,4 +13,4 @@ HEX_ENCODE_KEY = os.getenv('HEX_ENCODE_KEY')
 
 
 scheduler = AsyncIOScheduler()
-scheduler.add_job(fetch_expired_ttl, 'interval', hour=1)
+scheduler.add_job(fetch_expired_ttl, 'interval', hours=1)
