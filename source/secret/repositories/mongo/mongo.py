@@ -3,21 +3,23 @@ from datetime import datetime
 from starlette import status
 from starlette.responses import JSONResponse
 
+from source.secret.model import Secret
 from source.secret.repositories.base import BaseDBManager
+from source.secret.schema import SecretCreate
+from source.secret.utils import calculate_ttl
 
 
 class MongoRepository(BaseDBManager):
-
-    async def get_all_secrets(self) -> list[Secret]:
-        secret_query = self.db.secret.find()
-        secrets = await secret_query.to_list(length=10)
-        return [Secret(**secret) for secret in secrets]
+    async def get_all_secrets(self):
+        try:
+            secrets = await Secret.find().to_list()
+            # serialized_secrets = [secret.model_dump() for secret in secrets]
+            return secrets
+        except Exception as e:
+            return e
 
     async def create_secret(self, secret_data: dict) -> JSONResponse:
-        created_at = secret_data.get('created_at', None)
-        living_time = secret_data.get('living_time', None)
-        secret_data['expireAt'] = calculate_ttl(created_at, living_time)
-        await self.db.secret.insert_one(secret_data)
+        await Secret(**secret_data).create()
         response_data = {"message": "Secret created successfully"}
         return JSONResponse(status_code=status.HTTP_201_CREATED, content=response_data)
 

@@ -12,7 +12,7 @@ class LivingTime(str, Enum):
     ONE_WEEK = "1 week"
 
 
-class Secret(BaseModel):
+class SecretCreate(BaseModel):
     message: str
     secret_key: str
     living_time: LivingTime = LivingTime.ONE_DAY
