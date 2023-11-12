@@ -7,4 +7,8 @@ from source.settings import DB_PATH
 
 async def init_db():
     client = motor.motor_asyncio.AsyncIOMotorClient(host=DB_PATH)
-    await init_beanie(database=client['secrets'], document_models=[Secret])
+    db = client['secrets']
+
+    await init_beanie(database=db, document_models=[Secret])
+    await client.server_info()
+    return db

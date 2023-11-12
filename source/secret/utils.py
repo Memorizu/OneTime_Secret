@@ -20,7 +20,7 @@ def encode(data: str) -> bytes:
     return encrypted_data
 
 
-def decode(data: bytes) -> str:
+def decode(data: str) -> str:
     """
     Decrypts the input encrypted data and returns the original string.
     Args:
@@ -28,7 +28,8 @@ def decode(data: bytes) -> str:
     Returns:
         str: Decrypted original data as a string.
     """
-    decrypted_data = cipher_suite.decrypt(data).decode('utf-8')
+    encrypted_data_bytes = data.encode('utf-8')
+    decrypted_data = cipher_suite.decrypt(encrypted_data_bytes).decode('utf-8')
     return decrypted_data
 
 

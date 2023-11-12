@@ -1,7 +1,6 @@
 import hashlib
 
 from source.secret.repositories.base import BaseDBManager
-from source.secret.repositories.mongo.mongo import MongoRepository
 from source.secret.schema import SecretCreate
 from source.secret.utils import calculate_ttl, encode
 
@@ -18,7 +17,7 @@ class SecretService:
 
     def create_secret(self, secret_data: SecretCreate):
         """
-        Creates a secret. When creating a Secret, it encrypts the message and hashes the secret key.
+        Creates a test_secret. When creating a Secret, it encrypts the message and hashes the test_secret key.
         """
         secret = secret_data.model_dump()
         secret['message'] = encode(secret.get('message', ''))
@@ -28,9 +27,9 @@ class SecretService:
         secret['expireAt'] = calculate_ttl(created_at, living_time)
         return self.repository.create_secret(secret)
 
-    # def get_secret(self, secret_key: str):
-    #     """
-    #     Accepts a secret key and returns a message from a document using that secret key
-    #     """
-    #     hash_secret = hashlib.sha256(secret_key.encode()).hexdigest()
-    #     return self.repository.get_secret(hash_secret)
+    def get_secret(self, secret_key: str):
+        """
+        Accepts a test_secret key and returns a message from a document using that test_secret key
+        """
+        hash_secret = hashlib.sha256(secret_key.encode()).hexdigest()
+        return self.repository.get_secret(hash_secret)
